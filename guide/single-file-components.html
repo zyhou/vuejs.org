@@ -410,17 +410,6 @@
 <li>To extract styles to a separate css file use a extract-css plugin which is included in vueify.</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">NODE_ENV=production browserify -g envify -p [ vueify/plugins/extract-css -o build.css ] <span class="_">-e</span> main.js | uglifyjs -c -m &gt; build.js</div></pre></td></tr></table></figure>
-<h3 id="Use-the-Runtime-Only-Build"><a href="#Use-the-Runtime-Only-Build" class="headerlink" title="Use the Runtime-Only Build"></a>Use the Runtime-Only Build</h3><p>There are two builds available, the standalone build and the runtime-only build.</p>
-<ul>
-<li><p>The standalone build includes the compiler and supports the <code>template</code> option.</p>
-</li>
-<li><p>The runtime-only build does not include the template compiler, and does not support the <code>template</code> option. You can only use the <code>render</code> option when using the runtime-only build, but it works with single-file components, because single-file components’ templates are pre-compiled into <code>render</code> functions during the build step. The runtime-only build is roughly 30% lighter-weight than the standalone build, weighing only 16kb min+gzip.</p>
-</li>
-</ul>
-<p>By default, the NPM package exports the standalone build. To use the runtime-only build, add the following alias to your webpack config:</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">resolve: &#123;</div><div class="line">  alias: &#123;</div><div class="line">    vue: <span class="string">'vue/dist/vue.common.js'</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>For Browserify, you can use <a href="https://github.com/benbria/aliasify" target="_blank" rel="external">aliasify</a> to achieve the same.</p>
-<p class="tip">Do NOT do <code>import Vue from &#39;vue/dist/vue.common.js&#39;</code> - since some tools or 3rd party libraries may import vue as well, this may cause the app to load both the runtime and standalone builds at the same time and lead to errors.</p>
 
     
       <div class="guide-links">
