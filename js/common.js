@@ -8,7 +8,7 @@
   }
 
   /**
-   * Algolia search box
+   * Swiftype search box
    */
 
   function initSearch () {
@@ -18,10 +18,10 @@
     ].forEach(function (selector) {
       if (!document.querySelector(selector)) return
       docsearch({
-        apiKey: '4241f13146a917bb9c1cc70cabd41815',
-        indexName: 'vuejs_1',
-        inputSelector: selector,
-        debug: false // set debug to true if you want to inspect the dropdown
+        appId: 'BH4D9OD16A',
+        apiKey: '85cc3221c9f23bfbaa4e3913dd7625ea',
+        indexName: 'vuejs',
+        inputSelector: selector
       })
     })
   }
@@ -54,10 +54,14 @@
     // version select
     document.querySelector('.version-select').addEventListener('change', function (e) {
       var version = e.target.value
-      if (version !== 'SELF') {
-        var section = window.location.pathname.match(/\/(\w+?)\//)[1]
-        window.location.assign('http://' + (version ? version + '.' : '') + 'vuejs.org/' + section + '/')
-      }
+      var section = window.location.pathname.match(/\/(\w+?)\//)[1]
+      if (version === 'SELF') return
+      window.location.assign(
+        'http://' +
+        version +
+        (version && '.') +
+        'vuejs.org/' + section + '/'
+      )
     })
   }
 
