@@ -110,10 +110,17 @@
 
 
 <div class="content api with-sidebar ">
-    <div id="ad">
-  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=vuejs" id="_carbonads_js"></script>
+    
+      <div id="ad">
+  <span>Sponsored By</span><br>
+  <a href="http://www.thedifferenceengine.io/" target="_blank"
+    style="background-color: rgba(0,0,0,.85); padding: 10px 0">
+    <img src="/images/tde.png">
+  </a>
+  <!-- <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=vuejs" id="_carbonads_js"></script> -->
 </div>
 
+    
     <h1></h1>
     <h2 id="Global-Config"><a href="#Global-Config" class="headerlink" title="Global Config"></a>Global Config</h2><p><code>Vue.config</code> is an object containing Vue’s global configurations. You can modify its properties listed below before bootstrapping your application:</p>
 <h3 id="silent"><a href="#silent" class="headerlink" title="silent"></a>silent</h3><ul>
@@ -157,6 +164,9 @@
 <li><p><strong>Usage:</strong></p>
 <figure class="highlight js"><table><tr><td class="code"><pre><div class="line">Vue.config.errorHandler = <span class="function"><span class="keyword">function</span> (<span class="params">err, vm</span>) </span>&#123;</div><div class="line">  <span class="comment">// handle error</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>Assign a handler for uncaught errors during component render and watchers. The handler gets called with the error and the Vue instance.</p>
+<blockquote>
+<p><a href="https://sentry.io" target="_blank" rel="external">Sentry</a>, an error tracking service, provides <a href="https://sentry.io/for/vue/" target="_blank" rel="external">official integration</a> using this option.</p>
+</blockquote>
 </li>
 </ul>
 <h3 id="keyCodes"><a href="#keyCodes" class="headerlink" title="keyCodes"></a>keyCodes</h3><ul>
@@ -165,8 +175,8 @@
 <li><p><strong>Default:</strong> <code>{}</code></p>
 </li>
 <li><p><strong>Usage:</strong></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">Vue.config.keyCodes = &#123; esc: <span class="number">27</span> &#125;</div></pre></td></tr></table></figure>
-<p>Define custom key aliases for v-on.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">Vue.config.keyCodes = &#123;</div><div class="line">  v: <span class="number">86</span>,</div><div class="line">  f1: <span class="number">112</span>,</div><div class="line">  mediaPlayPause: <span class="number">179</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Define custom key alias(es) for v-on.</p>
 </li>
 </ul>
 <h2 id="Global-API"><a href="#Global-API" class="headerlink" title="Global API"></a>Global API</h2><h3 id="Vue-extend">Vue.extend( options )</h3>
@@ -344,6 +354,7 @@
 </li>
 <li><p><strong>Example:</strong></p>
 <figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">var</span> data = &#123; a: <span class="number">1</span> &#125;</div><div class="line"></div><div class="line"><span class="comment">// direct instance creation</span></div><div class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</div><div class="line">  data: data</div><div class="line">&#125;)</div><div class="line">vm.a <span class="comment">// -&gt; 1</span></div><div class="line">vm.$data === data <span class="comment">// -&gt; true</span></div><div class="line"></div><div class="line"><span class="comment">// must use function when in Vue.extend()</span></div><div class="line"><span class="keyword">var</span> Component = Vue.extend(&#123;</div><div class="line">  data: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> &#123; a: <span class="number">1</span> &#125;</div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p class="tip">Note that <strong>you should not use an arrow function with the <code>data</code> property</strong> (e.g. <code>data: () =&gt; { return { a: this.myProp }}</code>). The reason is arrow functions bind the parent context, so <code>this</code> will not be the Vue instance as you expect and <code>this.myProp</code> will be undefined.</p>
 </li>
 <li><p><strong>See also:</strong> <a href="/guide/reactivity.html">Reactivity in Depth</a></p>
 </li>
@@ -377,6 +388,8 @@
 </li>
 <li><p><strong>Details:</strong></p>
 <p>Computed properties to be mixed into the Vue instance. All getters and setters have their <code>this</code> context automatically bound to the Vue instance.</p>
+<p class="tip">Note that <strong>you should not use an arrow function to define a computed property</strong> (e.g. <code>aDouble: () =&gt; this.a * 2</code>). The reason is arrow functions bind the parent context, so <code>this</code> will not be the Vue instance as you expect and <code>this.a</code> will be undefined.</p>
+
 <p>Computed properties are cached, and only re-computed on reactive dependency changes.</p>
 </li>
 <li><p><strong>Example:</strong></p>
@@ -393,6 +406,7 @@
 </li>
 <li><p><strong>Details:</strong></p>
 <p>Methods to be mixed into the Vue instance. You can access these methods directly on the VM instance, or use them in directive expressions. All methods will have their <code>this</code> context automatically bound to the Vue instance.</p>
+<p class="tip">Note that <strong>you should not use an arrow function to define a method</strong> (e.g. <code>plus: () =&gt; this.a++</code>). The reason is arrow functions bind the parent context, so <code>this</code> will not be the Vue instance as you expect and <code>this.a</code> will be undefined.</p>
 </li>
 <li><p><strong>Example:</strong></p>
 <figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</div><div class="line">  data: &#123; a: <span class="number">1</span> &#125;,</div><div class="line">  methods: &#123;</div><div class="line">    plus: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">      <span class="keyword">this</span>.a++</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;)</div><div class="line">vm.plus()</div><div class="line">vm.a <span class="comment">// 2</span></div></pre></td></tr></table></figure>
@@ -407,7 +421,8 @@
 <p>An object where keys are expressions to watch and values are the corresponding callbacks. The value can also be a string of a method name, or an Object that contains additional options. The Vue instance will call <code>$watch()</code> for each entry in the object at instantiation.</p>
 </li>
 <li><p><strong>Example:</strong></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</div><div class="line">  data: &#123;</div><div class="line">    a: <span class="number">1</span></div><div class="line">  &#125;,</div><div class="line">  watch: &#123;</div><div class="line">    <span class="string">'a'</span>: <span class="function"><span class="keyword">function</span> (<span class="params">val, oldVal</span>) </span>&#123;</div><div class="line">      <span class="built_in">console</span>.log(<span class="string">'new: %s, old: %s'</span>, val, oldVal)</div><div class="line">    &#125;,</div><div class="line">    <span class="comment">// string method name</span></div><div class="line">    <span class="string">'b'</span>: <span class="string">'someMethod'</span>,</div><div class="line">    <span class="comment">// deep watcher</span></div><div class="line">    <span class="string">'c'</span>: &#123;</div><div class="line">      handler: <span class="function"><span class="keyword">function</span> (<span class="params">val, oldVal</span>) </span>&#123; <span class="comment">/* ... */</span> &#125;,</div><div class="line">      deep: <span class="literal">true</span></div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;)</div><div class="line">vm.a = <span class="number">2</span> <span class="comment">// -&gt; new: 2, old: 1</span></div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</div><div class="line">  data: &#123;</div><div class="line">    a: <span class="number">1</span>,</div><div class="line">    b: <span class="number">2</span>,</div><div class="line">    c: <span class="number">3</span></div><div class="line">  &#125;,</div><div class="line">  watch: &#123;</div><div class="line">    a: <span class="function"><span class="keyword">function</span> (<span class="params">val, oldVal</span>) </span>&#123;</div><div class="line">      <span class="built_in">console</span>.log(<span class="string">'new: %s, old: %s'</span>, val, oldVal)</div><div class="line">    &#125;,</div><div class="line">    <span class="comment">// string method name</span></div><div class="line">    b: <span class="string">'someMethod'</span>,</div><div class="line">    <span class="comment">// deep watcher</span></div><div class="line">    c: &#123;</div><div class="line">      handler: <span class="function"><span class="keyword">function</span> (<span class="params">val, oldVal</span>) </span>&#123; <span class="comment">/* ... */</span> &#125;,</div><div class="line">      deep: <span class="literal">true</span></div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;)</div><div class="line">vm.a = <span class="number">2</span> <span class="comment">// -&gt; new: 2, old: 1</span></div></pre></td></tr></table></figure>
+<p class="tip">Note that <strong>you should not use an arrow function to define a watcher</strong> (e.g. <code>searchQuery: newValue =&gt; this.updateAutocomplete(newValue)</code>). The reason is arrow functions bind the parent context, so <code>this</code> will not be the Vue instance as you expect and <code>this.updateAutocomplete</code> will be undefined.</p>
 </li>
 <li><p><strong>See also:</strong> <a href="#vm-watch">Instance Methods - vm.$watch</a></p>
 </li>
@@ -454,7 +469,8 @@
 </ul>
 </li>
 </ul>
-<h2 id="Options-Lifecycle-Hooks"><a href="#Options-Lifecycle-Hooks" class="headerlink" title="Options / Lifecycle Hooks"></a>Options / Lifecycle Hooks</h2><h3 id="beforeCreate"><a href="#beforeCreate" class="headerlink" title="beforeCreate"></a>beforeCreate</h3><ul>
+<h2 id="Options-Lifecycle-Hooks"><a href="#Options-Lifecycle-Hooks" class="headerlink" title="Options / Lifecycle Hooks"></a>Options / Lifecycle Hooks</h2><p>All lifecycle hooks automatically have their <code>this</code> context bound to the instance, so that you can access data, computed properties, and methods. This means <strong>you should not use an arrow function to define a lifecycle method</strong> (e.g. <code>created: () =&gt; this.fetchTodos()</code>). The reason is arrow functions bind the parent context, so <code>this</code> will not be the Vue instance as you expect and <code>this.fetchTodos</code> will be undefined.</p>
+<h3 id="beforeCreate"><a href="#beforeCreate" class="headerlink" title="beforeCreate"></a>beforeCreate</h3><ul>
 <li><p><strong>Type:</strong> <code>Function</code></p>
 </li>
 <li><p><strong>Details:</strong></p>
@@ -583,8 +599,7 @@
 </li>
 <li><p><strong>See also:</strong></p>
 <ul>
-<li><a href="/guide/custom-filter.html">Custom Filters</a></li>
-<li><a href="/guide/components.html#Assets-Naming-Convention">Assets Naming Convention</a></li>
+<li><a href="#Vue-filter"><code>Vue.filter</code></a></li>
 </ul>
 </li>
 </ul>
@@ -629,7 +644,7 @@
 </li>
 <li><p><strong>Details:</strong></p>
 <p>Allow the component to recursively invoke itself in its template. Note that when a component is registered globally with <code>Vue.component()</code>, the global ID is automatically set as its name.</p>
-<p>Another benefit of specifying a <code>name</code> option is debugging. Named components result in more helpful warning messages. Also, when inspecting an app in the Vue devtool, unnamed components will show up as <code>&lt;AnonymousComponent&gt;</code>, which isn’t very informative. By providing the <code>name</code> option, you will get a much more informative component tree.</p>
+<p>Another benefit of specifying a <code>name</code> option is debugging. Named components result in more helpful warning messages. Also, when inspecting an app in the <a href="https://github.com/vuejs/vue-devtools" target="_blank" rel="external">vue-devtools</a>, unnamed components will show up as <code>&lt;AnonymousComponent&gt;</code>, which isn’t very informative. By providing the <code>name</code> option, you will get a much more informative component tree.</p>
 </li>
 </ul>
 <h3 id="extends"><a href="#extends" class="headerlink" title="extends"></a>extends</h3><ul>
@@ -668,7 +683,7 @@
 <li><p><strong>Type:</strong> <code>Object</code></p>
 </li>
 <li><p><strong>Details:</strong></p>
-<p>The data object that the Vue instance is observing. You can swap it with a new object. The Vue instance proxies access to the properties on its data object.</p>
+<p>The data object that the Vue instance is observing. The Vue instance proxies access to the properties on its data object.</p>
 </li>
 <li><p><strong>See also:</strong> <a href="#data">Options - data</a></p>
 </li>

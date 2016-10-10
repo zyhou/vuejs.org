@@ -92,6 +92,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #34495e;
+  background-color: #fff;
   margin: 0;
 }
 a {
@@ -207,6 +208,7 @@ a.button.white {
 }
 #ad {
   width: 125px;
+  text-align: center;
   position: fixed;
   z-index: 99;
   bottom: 10px;
@@ -217,10 +219,12 @@ a.button.white {
   font-size: 13px;
 }
 #ad a {
+  display: inline-block;
   color: #7f8c8d;
   font-weight: normal;
 }
 #ad span {
+  color: #7f8c8d;
   display: inline-block;
   margin-bottom: 5px;
 }
@@ -608,7 +612,7 @@ ul.demo li {
   display: none;
   padding-left: 0;
 }
-@media screen and (max-width: 720px) {
+@media screen and (max-width: 900px) {
   .sidebar {
     position: fixed;
     z-index: 8;
@@ -779,33 +783,14 @@ ul.demo li {
   #ad {
     z-index: 7;
     position: relative;
-    width: 100%;
     padding: 0;
     bottom: 0;
     right: 0;
-    margin: 0 0 15px -6px;
-  }
-  #ad .carbon-wrap,
-  #ad .carbon-img,
-  #ad .carbon-text,
-  #ad .carbon-poweredby {
-    display: inline-block;
-    vertical-align: top;
-  }
-  #ad .carbon-text {
-    width: 140px;
-    margin-left: 15px;
-  }
-  #ad .carbon-poweredby {
-    position: absolute;
-    bottom: 12px;
-    left: 140px;
+    float: right;
+    margin: 0 0 20px 30px;
   }
 }
-@media screen and (max-width: 720px) {
-  #ad {
-    width: 100%;
-  }
+@media screen and (max-width: 900px) {
   body {
     -webkit-text-size-adjust: none;
     font-size: 14px;
@@ -833,7 +818,7 @@ ul.demo li {
     padding: 1.2em 1em;
   }
   .content.with-sidebar {
-    margin-left: 0;
+    margin: auto;
   }
   .footer {
     margin-left: 0;

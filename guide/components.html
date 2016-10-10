@@ -213,7 +213,7 @@
                 
                 
                 <li>
-                    <a href="/guide/transitions.html" class="sidebar-link">Transitions: Entering, Leaving, and Lists</a>
+                    <a href="/guide/transitions.html" class="sidebar-link">Transition Effects</a>
                 </li>
             
                 
@@ -277,6 +277,15 @@
                 
                 <li>
                     <a href="/guide/single-file-components.html" class="sidebar-link">Single File Components</a>
+                </li>
+            
+                
+                
+                
+                
+                
+                <li>
+                    <a href="/guide/deployment.html" class="sidebar-link">Deploying For Production</a>
                 </li>
             
                 
@@ -361,10 +370,17 @@
 
 
 <div class="content guide with-sidebar components-guide">
-    <div id="ad">
-  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=vuejs" id="_carbonads_js"></script>
+    
+      <div id="ad">
+  <span>Sponsored By</span><br>
+  <a href="http://www.thedifferenceengine.io/" target="_blank"
+    style="background-color: rgba(0,0,0,.85); padding: 10px 0">
+    <img src="/images/tde.png">
+  </a>
+  <!-- <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=vuejs" id="_carbonads_js"></script> -->
 </div>
 
+    
     <h1>Components</h1>
     <h2 id="What-are-Components"><a href="#What-are-Components" class="headerlink" title="What are Components?"></a>What are Components?</h2><p>Components are one of the most powerful features of Vue. They help you extend basic HTML elements to encapsulate reusable code. At a high level, components are custom elements that Vue’s compiler attaches behavior to. In some cases, they may also appear as a native HTML element extended with the special <code>is</code> attribute.</p>
 <h2 id="Using-Components"><a href="#Using-Components" class="headerlink" title="Using Components"></a>Using Components</h2><h3 id="Registration"><a href="#Registration" class="headerlink" title="Registration"></a>Registration</h3><p>We’ve learned in the previous sections that we can create a new Vue instance with:</p>
@@ -543,7 +559,7 @@ new Vue({
 <li>Array</li>
 </ul>
 <p>In addition, <code>type</code> can also be a custom constructor function and the assertion will be made with an <code>instanceof</code> check.</p>
-<p>When a prop validation fails, Vue will refuse to set the value on the child component and throw a warning if using the development build.</p>
+<p>When a prop validation fails, Vue will produce a console warning (if using the development build).</p>
 <h2 id="Custom-Events"><a href="#Custom-Events" class="headerlink" title="Custom Events"></a>Custom Events</h2><p>We have learned that the parent can pass data down to the child using props, but how do we communicate back to the parent when something happens? This is where custom events come in.</p>
 <h3 id="Using-v-on-with-Custom-Events"><a href="#Using-v-on-with-Custom-Events" class="headerlink" title="Using v-on with Custom Events"></a>Using <code>v-on</code> with Custom Events</h3><p>Every Vue instance implements the <a href="/api/#Instance-Methods-Events">Events interface</a>, which means it can:</p>
 <ul>
@@ -746,7 +762,7 @@ new Vue({
           <span>← <a href="/guide/forms.html">Form Input Bindings</a></span>
         
         
-          <span style="float:right"><a href="/guide/transitions.html">Transitions: Entering, Leaving, and Lists</a> →</span>
+          <span style="float:right"><a href="/guide/transitions.html">Transition Effects</a> →</span>
         
       </div>
     

@@ -213,7 +213,7 @@
                 
                 
                 <li>
-                    <a href="/guide/transitions.html" class="sidebar-link">Transitions: Entering, Leaving, and Lists</a>
+                    <a href="/guide/transitions.html" class="sidebar-link">Transition Effects</a>
                 </li>
             
                 
@@ -277,6 +277,15 @@
                 
                 <li>
                     <a href="/guide/single-file-components.html" class="sidebar-link">Single File Components</a>
+                </li>
+            
+                
+                
+                
+                
+                
+                <li>
+                    <a href="/guide/deployment.html" class="sidebar-link">Deploying For Production</a>
                 </li>
             
                 
@@ -361,10 +370,17 @@
 
 
 <div class="content guide with-sidebar migration-guide">
-    <div id="ad">
-  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=vuejs" id="_carbonads_js"></script>
+    
+      <div id="ad">
+  <span>Sponsored By</span><br>
+  <a href="http://www.thedifferenceengine.io/" target="_blank"
+    style="background-color: rgba(0,0,0,.85); padding: 10px 0">
+    <img src="/images/tde.png">
+  </a>
+  <!-- <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=vuejs" id="_carbonads_js"></script> -->
 </div>
 
+    
     <h1>Migration from Vue 1.x</h1>
     <h2 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h2><blockquote>
 <p>Woah - this is a super long page! Does that mean 2.0 is completely different, I’ll have to learn the basics all over again, and migrating will be practically impossible?</p>
@@ -516,7 +532,7 @@
 <ul>
 <li><a href="components.html#Custom-Events">Custom component events</a></li>
 <li><a href="components.html#Form-Input-Components-using-Custom-Events">Custom input components</a> (using component events)</li>
-<li><a href="state-management.html">Global state managment</a></li>
+<li><a href="state-management.html">Global state management</a></li>
 </ul>
 
 <div class="upgrade-path">
@@ -528,7 +544,7 @@
 <ul>
 <li><a href="components.html#Custom-Events">Custom component events</a></li>
 <li><a href="components.html#Form-Input-Components-using-Custom-Events">Custom input components</a> (using component events)</li>
-<li><a href="state-management.html">Global state managment</a></li>
+<li><a href="state-management.html">Global state management</a></li>
 </ul>
 
 <div class="upgrade-path">
@@ -548,7 +564,7 @@
   <p>Run your end-to-end test suite or app after upgrading and look for <strong>console warnings</strong> about prop mutations.</p>
 </div>
 
-<h3 id="Props-on-a-Root-Instance-deprecated"><a href="#Props-on-a-Root-Instance-deprecated" class="headerlink" title="Props on a Root Instance deprecated"></a>Props on a Root Instance <sup>deprecated</sup></h3><p>On root Vue instances (i.e. instances created with <code>new Vue({ ... })</code>), you must use <code>propsData</code> instead instead of <code>props</code>.</p>
+<h3 id="Props-on-a-Root-Instance-deprecated"><a href="#Props-on-a-Root-Instance-deprecated" class="headerlink" title="Props on a Root Instance deprecated"></a>Props on a Root Instance <sup>deprecated</sup></h3><p>On root Vue instances (i.e. instances created with <code>new Vue({ ... })</code>), you must use <code>propsData</code> instead of <code>props</code>.</p>
 
 <div class="upgrade-path">
   <h4>Upgrade Path</h4>
@@ -702,7 +718,7 @@ new Vue({
 <p>Some of the most notable differences include:</p>
 <ul>
 <li>Directives no longer have instances. This means there’s no more <code>this</code> inside directive hooks. Instead, they receive everything they might need as arguments. If you really must persist state across hooks, you can do so on <code>el</code>.</li>
-<li>Options such as <code>acceptStatement</code>, <code>deep</code>, <code>priority</code>, etc are all deprecated.</li>
+<li>Options such as <code>acceptStatement</code>, <code>deep</code>, <code>priority</code>, etc are all deprecated. To replace <code>twoWay</code> directives, see <a href="#Two-Way-Filters-deprecated">this example</a>.</li>
 <li>Some of the current hooks have different behavior and there are also a couple new hooks.</li>
 </ul>
 <p>Fortunately, since the new directives are much simpler, you can master them more easily. Read the new <a href="custom-directive.html">Custom Directives guide</a> to learn more.</p>
@@ -710,6 +726,17 @@ new Vue({
 <div class="upgrade-path">
   <h4>Upgrade Path</h4>
   <p>Run the <a href="https://github.com/vuejs/vue-migration-helper" target="_blank" rel="external">migration helper</a> on your codebase to find examples of defined directives. The helper will flag all of them, as it's likely in most cases that you'll want to refactor to a component.</p>
+</div>
+
+<h3 id="Directive-literal-Modifier-deprecated"><a href="#Directive-literal-Modifier-deprecated" class="headerlink" title="Directive .literal Modifier deprecated"></a>Directive <code>.literal</code> Modifier <sup>deprecated</sup></h3><p>The <code>.literal</code> modifier has been removed, as the same can be easily achieved by just providing a string literal as the value.</p>
+<p>For example, you can update:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">&lt;p v-my-directive.literal=<span class="string">"foo bar baz"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></div></pre></td></tr></table></figure>
+<p>to just:</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">v-my-directive</span>=<span class="string">"'foo bar baz'"</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></div></pre></td></tr></table></figure>
+
+<div class="upgrade-path">
+  <h4>Upgrade Path</h4>
+  <p>Run the <a href="https://github.com/vuejs/vue-migration-helper" target="_blank" rel="external">migration helper</a> on your codebase to find examples of the `.literal` modifier on a directive.</p>
 </div>
 
 <h2 id="Transitions"><a href="#Transitions" class="headerlink" title="Transitions"></a>Transitions</h2><h3 id="transition-Attribute-deprecated"><a href="#transition-Attribute-deprecated" class="headerlink" title="transition Attribute deprecated"></a><code>transition</code> Attribute <sup>deprecated</sup></h3><p>Vue’s transition system has changed quite drastically and now uses <code>&lt;transition&gt;</code> and <code>&lt;transition-group&gt;</code> wrapper elements, rather than the <code>transition</code> attribute. It’s recommended to read the new <a href="transitions.html">Transitions guide</a> to learn more.</p>
@@ -733,7 +760,8 @@ new Vue({
   <p>Run the <a href="https://github.com/vuejs/vue-migration-helper" target="_blank" rel="external">migration helper</a> on your codebase to find examples of the <code>transition</code> attribute. During your update, you can transition (pun very much intended) to the new staggering strategy as well.</p>
 </div>
 
-<h2 id="Events"><a href="#Events" class="headerlink" title="Events"></a>Events</h2><h3 id="Vue-directive-39-on-39-keyCodes-deprecated"><a href="#Vue-directive-39-on-39-keyCodes-deprecated" class="headerlink" title="Vue.directive(&#39;on&#39;).keyCodes deprecated"></a><code>Vue.directive(&#39;on&#39;).keyCodes</code> <sup>deprecated</sup></h3><p>The new, more concise way to configure <code>keyCodes</code> is through<code>Vue.config.keyCodes</code>. For example:</p>
+<h2 id="Events"><a href="#Events" class="headerlink" title="Events"></a>Events</h2><h3 id="events-option-deprecated"><a href="#events-option-deprecated" class="headerlink" title="events option deprecated"></a><code>events</code> option <sup>deprecated</sup></h3><p>The <code>events</code> option has been deprecated. Event handlers should now be registered in the <code>created</code> hook instead. Check out the <a href="#dispatch-and-broadcast-deprecated"><code>$dispatch</code> and <code>$broadcast</code> migration guide</a> for a detailed example.</p>
+<h3 id="Vue-directive-39-on-39-keyCodes-deprecated"><a href="#Vue-directive-39-on-39-keyCodes-deprecated" class="headerlink" title="Vue.directive(&#39;on&#39;).keyCodes deprecated"></a><code>Vue.directive(&#39;on&#39;).keyCodes</code> <sup>deprecated</sup></h3><p>The new, more concise way to configure <code>keyCodes</code> is through<code>Vue.config.keyCodes</code>. For example:</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// enable v-on:keyup.f1</span></div><div class="line">Vue.config.keyCodes.f1 = <span class="number">112</span></div></pre></td></tr></table></figure>
 
 <div class="upgrade-path">
@@ -743,7 +771,8 @@ new Vue({
 
 <h3 id="dispatch-and-broadcast-deprecated"><a href="#dispatch-and-broadcast-deprecated" class="headerlink" title="$dispatch and $broadcast deprecated"></a><code>$dispatch</code> and <code>$broadcast</code> <sup>deprecated</sup></h3><p><code>$dispatch</code> and <code>$broadcast</code> are being deprecated in favor of more explicitly cross-component communication and more maintainable state management solutions, such as <a href="https://github.com/vuejs/vuex" target="_blank" rel="external">Vuex</a>.</p>
 <p>The problem is event flows that depend on a component’s tree structure can be hard to reason about and very brittle when the tree becomes large. It simply doesn’t scale well and we don’t want to set you up for pain later. <code>$dispatch</code> and <code>$broadcast</code> also do not solve communication between sibling components.</p>
-<p>For the simplest possible upgrade from <code>$dispatch</code> and <code>$broadcast</code>, you can use a centralized event hub that allows components to communicate no matter where they are in the component tree. Because Vue instances implement an event emitter interface, you can actually use an empty Vue instance for this purpose.</p>
+<p>One of the most common uses for these methods is to communicate between a parent and its direct children. In these cases, you can actually <a href="http://vuejs.org/guide/components.html#Form-Input-Components-using-Custom-Events">listen to an <code>$emit</code> from a child with <code>v-on</code></a>. This allows you to keep the convenience of events with added explicitness.</p>
+<p>However, when communicating between distant descendants/ancestors, <code>$emit</code> won’t help you. Instead, the simplest possible upgrade would be to use a centralized event hub. This has the added benefit of allowing you to communicate between components no matter where they are in the component tree - even between siblings! Because Vue instances implement an event emitter interface, you can actually use an empty Vue instance for this purpose.</p>
 <p>For example, let’s say we have a todo app structured like this:</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">Todos</div><div class="line">|-- NewTodoInput</div><div class="line">|-- Todo</div><div class="line">    |-- DeleteTodoButton</div></pre></td></tr></table></figure>
 <p>We could manage communication between components with this single event hub:</p>
@@ -810,7 +839,7 @@ new Vue({
 <h4 id="Replacing-the-uppercase-Filter"><a href="#Replacing-the-uppercase-Filter" class="headerlink" title="Replacing the uppercase Filter"></a>Replacing the <code>uppercase</code> Filter</h4><figure class="highlight js"><table><tr><td class="code"><pre><div class="line">text.toUpperCase()</div></pre></td></tr></table></figure>
 <h4 id="Replacing-the-lowercase-Filter"><a href="#Replacing-the-lowercase-Filter" class="headerlink" title="Replacing the lowercase Filter"></a>Replacing the <code>lowercase</code> Filter</h4><figure class="highlight js"><table><tr><td class="code"><pre><div class="line">text.toLowerCase()</div></pre></td></tr></table></figure>
 <h4 id="Replacing-the-pluralize-Filter"><a href="#Replacing-the-pluralize-Filter" class="headerlink" title="Replacing the pluralize Filter"></a>Replacing the <code>pluralize</code> Filter</h4><p>The <a href="https://www.npmjs.com/package/pluralize" target="_blank" rel="external">pluralize</a> package on NPM serves this purpose nicely, but if you only want to pluralize a specific word or want to have special output for cases like <code>0</code>, then you can also easily define your own pluralize functions. For example:</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">pluralizeKnife</span> (<span class="params">count</span>) </span>&#123;</div><div class="line">  <span class="keyword">if</span> (count === <span class="number">0</span>) &#123;</div><div class="line">    <span class="keyword">return</span> <span class="string">'no knives'</span></div><div class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (count === <span class="number">1</span>) &#123;</div><div class="line">    <span class="keyword">return</span> count + <span class="string">'knife'</span></div><div class="line">  &#125; <span class="keyword">else</span> &#123;</div><div class="line">    <span class="keyword">return</span> count + <span class="string">'knives'</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">pluralizeKnife</span> (<span class="params">count</span>) </span>&#123;</div><div class="line">  <span class="keyword">if</span> (count === <span class="number">0</span>) &#123;</div><div class="line">    <span class="keyword">return</span> <span class="string">'no knives'</span></div><div class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (count === <span class="number">1</span>) &#123;</div><div class="line">    <span class="keyword">return</span> <span class="string">'1 knife'</span></div><div class="line">  &#125; <span class="keyword">else</span> &#123;</div><div class="line">    <span class="keyword">return</span> count + <span class="string">'knives'</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h4 id="Replacing-the-currency-Filter"><a href="#Replacing-the-currency-Filter" class="headerlink" title="Replacing the currency Filter"></a>Replacing the <code>currency</code> Filter</h4><p>For a very naive implementation, you could just do something like this:</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="string">'$'</span> + price.toFixed(<span class="number">2</span>)</div></pre></td></tr></table></figure>
 <p>In many cases though, you’ll still run into strange behavior (e.g. <code>0.035.toFixed(2)</code> rounds up to <code>0.4</code>, but <code>0.045</code> rounds down to <code>0.4</code>). To work around these issues, you can use the <a href="http://openexchangerates.github.io/accounting.js/" target="_blank" rel="external"><code>accounting</code></a> library to more reliably format currencies.</p>
@@ -818,6 +847,38 @@ new Vue({
 <div class="upgrade-path">
   <h4>Upgrade Path</h4>
   <p>Run the <a href="https://github.com/vuejs/vue-migration-helper" target="_blank" rel="external">migration helper</a> on your codebase to find examples of the deprecated text filters. If you miss any, you should also see <strong>console errors</strong>.</p>
+</div>
+
+<h3 id="Two-Way-Filters-deprecated"><a href="#Two-Way-Filters-deprecated" class="headerlink" title="Two-Way Filters deprecated"></a>Two-Way Filters <sup>deprecated</sup></h3><p>Some users have enjoyed using two-way filters with <code>v-model</code> to create interesting inputs with very little code. While <em>seemingly</em> simple however, two-way filters can also hide a great deal of complexity - and even encourage poor UX by delaying state updates. Instead, components wrapping an input are recommended as a more explicit and feature-rich way of creating custom inputs.</p>
+<p>As an example, we’ll now walk the migration of a two-way currency filter:</p>
+<iframe width="100%" height="300" src="https://jsfiddle.net/chrisvfritz/6744xnjk/embedded/js,html,result" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+<p>It mostly works well, but the delayed state updates can cause strange behavior. For example, click on the <code>Result</code> tab and try entering <code>9.999</code> into one of those inputs. When the input loses focus, its value will update to <code>$10.00</code>. When looking at the calculated total however, you’ll see that <code>9.999</code> is what’s stored in our data. The version of reality that the user sees is out of sync!</p>
+<p>To start transitioning towards a more robust solution using Vue 2.0, let’s first wrap this filter in a new <code>&lt;currency-input&gt;</code> component:</p>
+<iframe width="100%" height="300" src="https://jsfiddle.net/chrisvfritz/943zfbsh/embedded/js,html,result" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+<p>This allows us add behavior that a filter alone couldn’t encapsulate, such as selecting the content of an input on focus. Now the next step will be to extract the business logic from the filter. Below, we pull everything out into an external <a href="https://gist.github.com/chrisvfritz/5f0a639590d6e648933416f90ba7ae4e" target="_blank" rel="external"><code>currencyValidator</code> object</a>:</p>
+<iframe width="100%" height="300" src="https://jsfiddle.net/chrisvfritz/9c32kev2/embedded/js,html,result" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+<p>This increased modularity not only makes it easier to migrate to Vue 2, but also allows currency parsing and formatting to be:</p>
+<ul>
+<li>unit tested in isolation from your Vue code</li>
+<li>used by other parts of your application, such as to validate the payload to an API endpoint</li>
+</ul>
+<p>Having this validator extracted out, we’ve also more comfortably built it up into a more robust solution. The state quirks have been eliminated and it’s actually impossible for users to enter anything wrong, similar to what the browser’s native number input tries to do.</p>
+<p>We’re still limited however, by filters and by Vue 1.0 in general, so let’s complete the upgrade to Vue 2.0:</p>
+<iframe width="100%" height="300" src="https://jsfiddle.net/chrisvfritz/1oqjojjx/embedded/js,html,result" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+<p>You may notice that:</p>
+<ul>
+<li>Every aspect of our input is more explicit, using lifecycle hooks and DOM events in place of the hidden behavior of two-way filters.</li>
+<li>We can now use <code>v-model</code> directly on our custom inputs, which is not only more consistent with normal inputs, but also means our component is Vuex-friendly.</li>
+<li>Since we’re no longer using filter options that require a value to be returned, our currency work could actually be done asynchronously. That means if we had a lot of apps that had to work with currencies, we could easily refactor this logic into a shared microservice.</li>
+</ul>
+
+<div class="upgrade-path">
+  <h4>Upgrade Path</h4>
+  <p>Run the <a href="https://github.com/vuejs/vue-migration-helper" target="_blank" rel="external">migration helper</a> on your codebase to find examples of filters used in directives like <code>v-model</code>. If you miss any, you should also see <strong>console errors</strong>.</p>
 </div>
 
 <h2 id="Slots"><a href="#Slots" class="headerlink" title="Slots"></a>Slots</h2><h3 id="Duplicate-Slots-deprecated"><a href="#Duplicate-Slots-deprecated" class="headerlink" title="Duplicate Slots deprecated"></a>Duplicate Slots <sup>deprecated</sup></h3><p>It is no longer supported to have <code>&lt;slot&gt;</code>s with the same name in the same template. When a slot is rendered it is “used up” and cannot be rendered elsewhere in the same render tree. If you must render the same content in multiple places, pass that content as a prop.</p>
@@ -849,7 +910,7 @@ new Vue({
 </div>
 
 <h2 id="Interpolation"><a href="#Interpolation" class="headerlink" title="Interpolation"></a>Interpolation</h2><h3 id="Interpolation-within-Attributes-deprecated"><a href="#Interpolation-within-Attributes-deprecated" class="headerlink" title="Interpolation within Attributes deprecated"></a>Interpolation within Attributes <sup>deprecated</sup></h3><p>Interpolation within attributes is no longer valid. For example:</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">v-bind:class</span>=<span class="string">"btn btn-&#123;&#123; size &#125;&#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"btn btn-&#123;&#123; size &#125;&#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></div></pre></td></tr></table></figure>
 <p>Should either be updated to use an inline expression:</p>
 <figure class="highlight html"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">v-bind:class</span>=<span class="string">"'btn btn-' + size"</span>&gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></div></pre></td></tr></table></figure>
 <p>Or a data/computed property:</p>
@@ -1043,7 +1104,9 @@ new Vue({
   <p>Run the <a href="https://github.com/vuejs/vue-migration-helper" target="_blank" rel="external">migration helper</a> on your codebase to find examples of <code>Vue.elementDirective</code>.</p>
 </div>
 
-<h3 id="Vue-partial-deprecated"><a href="#Vue-partial-deprecated" class="headerlink" title="Vue.partial deprecated"></a><code>Vue.partial</code> <sup>deprecated</sup></h3><p>Use <a href="render-function.html#Functional-Components">functional components</a> instead.</p>
+<h3 id="Vue-partial-deprecated"><a href="#Vue-partial-deprecated" class="headerlink" title="Vue.partial deprecated"></a><code>Vue.partial</code> <sup>deprecated</sup></h3><p>Partials have been deprecated in favor of more explicit data flow between components, using props. Unless you’re using a partial in a performance-critical area, the recommendation is to simply use a <a href="components.html">normal component</a> instead. If you were dynamically binding the <code>name</code> of a partial, you can use a <a href="http://vuejs.org/guide/components.html#Dynamic-Components">dynamic component</a>.</p>
+<p>If you happen to be using partials in a performance-critical part of your app, then you should upgrade to <a href="render-function.html#Functional-Components">functional components</a>. They must be in a plain JS/JSX file (rather than in a <code>.vue</code> file) and are stateless and instanceless, just like partials. This makes rendering extremely fast.</p>
+<p>A benefit of functional components over partials is that they can be much more dynamic, because they grant you access to the full power of JavaScript. There is a cost to this power however. If you’ve never used a component framework with render functions before, they may take a bit longer to learn.</p>
 
 <div class="upgrade-path">
   <h4>Upgrade Path</h4>
