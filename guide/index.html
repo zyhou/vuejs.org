@@ -212,6 +212,15 @@
                 
                 
                 <li>
+                    <a href="/guide/reactivity.html" class="sidebar-link">Reactivity in Depth</a>
+                </li>
+            
+                
+                
+                
+                
+                
+                <li>
                     <a href="/guide/transitions.html" class="sidebar-link">Transition Effects</a>
                 </li>
             
@@ -231,15 +240,6 @@
                 
                 <li>
                     <a href="/guide/render-function.html" class="sidebar-link">Render Functions</a>
-                </li>
-            
-                
-                
-                
-                
-                
-                <li>
-                    <a href="/guide/reactivity.html" class="sidebar-link">Reactivity in Depth</a>
                 </li>
             
                 
@@ -341,6 +341,15 @@
                 
                 <li>
                     <a href="/guide/migration-vue-router.html" class="sidebar-link">Migration from Vue Router 0.7.x</a>
+                </li>
+            
+                
+                
+                
+                
+                
+                <li>
+                    <a href="/guide/migration-vuex.html" class="sidebar-link">Migration from Vuex 0.6.x to 1.0</a>
                 </li>
             
                 
@@ -511,12 +520,12 @@ var app6 = new Vue({
 <p>In Vue, a component is essentially a Vue instance with pre-defined options. Registering a component in Vue is straightforward:</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// Define a new component called todo-item</span></div><div class="line">Vue.component(<span class="string">'todo-item'</span>, &#123;</div><div class="line">  template: <span class="string">'&lt;li&gt;This is a todo&lt;/li&gt;'</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <p>Now you can compose it in another component’s template:</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></div><div class="line">  <span class="comment">&lt;!--</span></div><div class="line">  Create an instance of the todo-item component</div><div class="line">  for each todo in a todos array</div><div class="line">  --&gt;</div><div class="line">  <span class="tag">&lt;<span class="name">todo-item</span> <span class="attr">v-for</span>=<span class="string">"todo in todos"</span>&gt;</span><span class="tag">&lt;/<span class="name">todo-item</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></div><div class="line">  <span class="comment">&lt;!--</span></div><div class="line">  Create an instance of the todo-item component</div><div class="line">  --&gt;</div><div class="line">  <span class="tag">&lt;<span class="name">todo-item</span>&gt;</span><span class="tag">&lt;/<span class="name">todo-item</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div></pre></td></tr></table></figure>
 <p>But this would render the same text for every todo, which is not super interesting. We should be able to pass data from the parent scope into child components. Let’s modify the component definition to make it accept a <a href="/guide/components.html#Props">prop</a>:</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><div class="line">Vue.component(<span class="string">'todo-item'</span>, &#123;</div><div class="line">  <span class="comment">// The todo-item component now accepts a</span></div><div class="line">  <span class="comment">// "prop", which is like a custom attribute.</span></div><div class="line">  <span class="comment">// This prop is called todo.</span></div><div class="line">  props: [<span class="string">'todo'</span>],</div><div class="line">  template: <span class="string">'&lt;li&gt;&#123;&#123; todo.text &#125;&#125;&lt;/li&gt;'</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <p>Now we can pass the todo into each repeated component using <code>v-bind</code>:</p>
 <figure class="highlight html"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app-7"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">ol</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!--</span></div><div class="line">    Now we provide each todo-item with the todo object</div><div class="line">    it's representing, so that its content can be dynamic</div><div class="line">    --&gt;</div><div class="line">    <span class="tag">&lt;<span class="name">todo-item</span> <span class="attr">v-for</span>=<span class="string">"todo in todos"</span> <span class="attr">v-bind:todo</span>=<span class="string">"todo"</span>&gt;</span><span class="tag">&lt;/<span class="name">todo-item</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">ol</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">var</span> app7 = <span class="keyword">new</span> Vue(&#123;</div><div class="line">  el: <span class="string">'#app-7'</span>,</div><div class="line">  data: &#123;</div><div class="line">    todos: [</div><div class="line">      &#123; text: <span class="string">'Learn JavaScript'</span> &#125;,</div><div class="line">      &#123; text: <span class="string">'Learn Vue'</span> &#125;,</div><div class="line">      &#123; text: <span class="string">'Build something awesome'</span> &#125;</div><div class="line">    ]</div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">Vue.component(<span class="string">'todo-item'</span>, &#123;</div><div class="line">  props: [<span class="string">'todo'</span>],</div><div class="line">  template: <span class="string">'&lt;li&gt;&#123;&#123; todo.text &#125;&#125;&lt;/li&gt;'</span></div><div class="line">&#125;)</div><div class="line"><span class="keyword">var</span> app7 = <span class="keyword">new</span> Vue(&#123;</div><div class="line">  el: <span class="string">'#app-7'</span>,</div><div class="line">  data: &#123;</div><div class="line">    todos: [</div><div class="line">      &#123; text: <span class="string">'Learn JavaScript'</span> &#125;,</div><div class="line">      &#123; text: <span class="string">'Learn Vue'</span> &#125;,</div><div class="line">      &#123; text: <span class="string">'Build something awesome'</span> &#125;</div><div class="line">    ]</div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 
 <div id="app-7" class="demo">
   <ol>

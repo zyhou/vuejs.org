@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Custom Directives - vue.js</title>
+        <title>Migration from Vuex 0.6.x to 1.0 - vue.js</title>
         <meta charset="utf-8">
         <meta name="description" content="Vue.js - Intuitive, Fast and Composable MVVM for building interactive interfaces.">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -248,7 +248,7 @@
                 
                 
                 <li>
-                    <a href="/guide/custom-directive.html" class="sidebar-link current">Custom Directives</a>
+                    <a href="/guide/custom-directive.html" class="sidebar-link">Custom Directives</a>
                 </li>
             
                 
@@ -349,7 +349,7 @@
                 
                 
                 <li>
-                    <a href="/guide/migration-vuex.html" class="sidebar-link">Migration from Vuex 0.6.x to 1.0</a>
+                    <a href="/guide/migration-vuex.html" class="sidebar-link current">Migration from Vuex 0.6.x to 1.0</a>
                 </li>
             
                 
@@ -377,7 +377,7 @@
 </div>
 
 
-<div class="content guide with-sidebar custom-directive-guide">
+<div class="content guide with-sidebar migration-vuex-guide">
     
       <div id="ad">
   <span>Sponsored By</span><br>
@@ -390,106 +390,65 @@
 
     
     
-      <h1>Custom Directives</h1>
+      <h1>Migration from Vuex 0.6.x to 1.0</h1>
     
-    <h2 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h2><p>In addition to the default set of directives shipped in core (<code>v-model</code> and <code>v-show</code>), Vue also allows you to register your own custom directives. Note that in Vue 2.0, the primary form of code reuse and abstraction is components - however there may be cases where you just need some low-level DOM access on plain elements, and this is where custom directives would still be useful. An example would be focusing on an input element, like this one:</p>
+    <blockquote>
+<p>Vuex 2.0 is released, but this guide only covers the migration to 1.0? Is that a typo? Also, it looks like Vuex 1.0 and 2.0 were released simultaneously. What’s going on? Which one should I use and what’s compatible with Vue 2.0?</p>
+</blockquote>
+<p>Both Vuex 1.0 and 2.0:</p>
+<ul>
+<li>fully support both Vue 1.0 and 2.0</li>
+<li>will be maintained for the forseeable future</li>
+</ul>
+<p>They have slightly different target users however.</p>
+<p><strong>Vuex 2.0</strong> is a radical redesign and simplification of the API, for those who are starting new projects or want to be on the cutting edge of client-side state management. <strong>It is not covered by this migration guide</strong>, so you should check out <a href="https://vuex.vuejs.org/en/index.html" target="_blank" rel="external">the Vuex 2.0 docs</a> if you’d like to learn more about it.</p>
+<p><strong>Vuex 1.0</strong> is mostly backwards-compatible, so requires very few changes to upgrade. It is recommended for those with large existing codebases or who just want the smoothest possible upgrade path to Vue 2.0. This guide is dedicated to facilitating that process, but only includes migration notes. For the complete usage guide, see <a href="https://github.com/vuejs/vuex/tree/1.0/docs/en" target="_blank" rel="external">the Vuex 1.0 docs</a>.</p>
+<p class="tip">The list of deprecations below should be relatively complete, but the migration helper is still being updated to catch them.</p>
 
-<div id="simplest-directive-example" class="demo">
-  <input v-focus="">
+<h2 id="store-watch-with-String-Property-Path-deprecated"><a href="#store-watch-with-String-Property-Path-deprecated" class="headerlink" title="store.watch with String Property Path deprecated"></a><code>store.watch</code> with String Property Path <sup>deprecated</sup></h2><p><code>store.watch</code> now only accept functions. So for example, you would have to replace:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">store.watch(<span class="string">'user.notifications'</span>, callback)</div></pre></td></tr></table></figure>
+<p>with:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">store.watch(</div><div class="line">  <span class="comment">// When the returned result changes...</span></div><div class="line">  <span class="function"><span class="keyword">function</span> (<span class="params">state</span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> state.user.notifications</div><div class="line">  &#125;,</div><div class="line">  <span class="comment">// Run this callback</span></div><div class="line">  callback</div><div class="line">)</div></pre></td></tr></table></figure>
+<p>This gives you more complete control over the reactive properties you’d like to watch.</p>
+
+<div class="upgrade-path">
+  <h4>Upgrade Path</h4>
+  <p>Run the <a href="https://github.com/vuejs/vue-migration-helper" target="_blank" rel="external">migration helper</a> on your codebase to find examples of <code>store.watch</code> with a string as the first argument.</p>
 </div>
-<script>
-Vue.directive('focus', {
-  inserted: function (el) {
-    el.focus()
-  }
-})
-new Vue({
-  el: '#simplest-directive-example'
-})
-</script>
 
-<p>When the page loads, that element gains focus. In fact, if you haven’t clicked on anything else since visiting this page, the input above should be focused now. Now let’s build the directive that accomplishes this:</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// Register a global custom directive called v-focus</span></div><div class="line">Vue.directive(<span class="string">'focus'</span>, &#123;</div><div class="line">  <span class="comment">// When the bound element is inserted into the DOM...</span></div><div class="line">  inserted: <span class="function"><span class="keyword">function</span> (<span class="params">el</span>) </span>&#123;</div><div class="line">    <span class="comment">// Focus the element</span></div><div class="line">    el.focus()</div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<p>If you want to register a directive locally instead, components also accept a <code>directives</code> option:</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">directives: &#123;</div><div class="line">  focus: &#123;</div><div class="line">    <span class="comment">// directive definition</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>Then in a template, you can use the new <code>v-focus</code> attribute on any element, like this:</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">v-focus</span>&gt;</span></div></pre></td></tr></table></figure>
-<h2 id="Hook-Functions"><a href="#Hook-Functions" class="headerlink" title="Hook Functions"></a>Hook Functions</h2><p>A directive definition object can provide several hook functions (all optional):</p>
-<ul>
-<li><p><code>bind</code>: called only once, when the directive is first bound to the element. This is where you can do one-time setup work.</p>
-</li>
-<li><p><code>inserted</code>: called when the bound element has been inserted into its parent node (this only guarantees parent node presence, not necessarily in-document).</p>
-</li>
-<li><p><code>update</code>: called after the containing component has updated, <strong>but possibly before its children have updated</strong>. The directive’s value may or may not have changed, but you can skip unnecessary updates by comparing the binding’s current and old values (see below on hook arguments).</p>
-</li>
-<li><p><code>componentUpdated</code>: called after the containing component <strong>and its children</strong> have updated.</p>
-</li>
-<li><p><code>unbind</code>: called only once, when the directive is unbound from the element.</p>
-</li>
-</ul>
-<p>We’ll explore the arguments passed into these hooks (i.e. <code>el</code>, <code>binding</code>, <code>vnode</code>, and <code>oldVnode</code>) in the next section.</p>
-<h2 id="Directive-Hook-Arguments"><a href="#Directive-Hook-Arguments" class="headerlink" title="Directive Hook Arguments"></a>Directive Hook Arguments</h2><p>Directive hooks are passed these arguments:</p>
-<ul>
-<li><strong>el</strong>: The element the directive is bound to. This can be used to directly manipulate the DOM.</li>
-<li><strong>binding</strong>: An object containing the following properties.<ul>
-<li><strong>name</strong>: The name of the directive, without the <code>v-</code> prefix.</li>
-<li><strong>value</strong>: The value passed to the directive. For example in <code>v-my-directive=&quot;1 + 1&quot;</code>, the value would be <code>2</code>.</li>
-<li><strong>oldValue</strong>: The previous value, only available in <code>update</code> and <code>componentUpdated</code>. It is available whether or not the value has changed.</li>
-<li><strong>expression</strong>: The expression of the binding as a string. For example in <code>v-my-directive=&quot;1 + 1&quot;</code>, the expression would be <code>&quot;1 + 1&quot;</code>.</li>
-<li><strong>arg</strong>: The argument passed to the directive, if any. For example in <code>v-my-directive:foo</code>, the arg would be <code>&quot;foo&quot;</code>.</li>
-<li><strong>modifiers</strong>: An object containing modifiers, if any. For example in <code>v-my-directive.foo.bar</code>, the modifiers object would be <code>{ foo: true, bar: true }</code>.</li>
-</ul>
-</li>
-<li><strong>vnode</strong>: The virtual node produced by Vue’s compiler. See the <a href="/api/#VNode-Interface">VNode API</a> for full details.</li>
-<li><strong>oldVnode</strong>: The previous virtual node, only available in the <code>update</code> and <code>componentUpdated</code> hooks.</li>
-</ul>
-<p class="tip">Apart from <code>el</code>, you should treat these arguments as read-only and never modify them. If you need to share information across hooks, it is recommended to do so through element’s <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset" target="_blank" rel="external">dataset</a>.</p>
+<h2 id="Store’s-Event-Emitter-deprecated"><a href="#Store’s-Event-Emitter-deprecated" class="headerlink" title="Store’s Event Emitter deprecated"></a>Store’s Event Emitter <sup>deprecated</sup></h2><p>The store instance no longer exposes the event emitter interface (<code>on</code>, <code>off</code>, <code>emit</code>). If you were previously using the store as a global event bus, <a href="http://vuejs.org/guide/migration.html#dispatch-and-broadcast-deprecated">see this section</a> for migration instructions.</p>
+<p>Instead of using this interface to watch events emitted by the store itself (e.g. <code>store.on(&#39;mutation&#39;, callback)</code>), a new method <code>store.subscribe</code> is introduced. Typical usage inside a plugin would be:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">var</span> myPlugin = store =&gt; &#123;</div><div class="line">  store.subscribe(<span class="function"><span class="keyword">function</span> (<span class="params">mutation, state</span>) </span>&#123;</div><div class="line">    <span class="comment">// Do something...</span></div><div class="line">  &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>See example <a href="https://github.com/vuejs/vuex/blob/1.0/docs/en/plugins.md" target="_blank" rel="external">the plugins docs</a> for more info.</p>
 
-<p>An example of a custom directive using some of these properties:</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"hook-arguments-example"</span> <span class="attr">v-demo:hello.a.b</span>=<span class="string">"message"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">Vue.directive(<span class="string">'demo'</span>, &#123;</div><div class="line">  bind: <span class="function"><span class="keyword">function</span> (<span class="params">el, binding, vnode</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> s = <span class="built_in">JSON</span>.stringify</div><div class="line">    el.innerHTML =</div><div class="line">      <span class="string">'name: '</span>       + s(binding.name) + <span class="string">'&lt;br&gt;'</span> +</div><div class="line">      <span class="string">'value: '</span>      + s(binding.value) + <span class="string">'&lt;br&gt;'</span> +</div><div class="line">      <span class="string">'expression: '</span> + s(binding.expression) + <span class="string">'&lt;br&gt;'</span> +</div><div class="line">      <span class="string">'argument: '</span>   + s(binding.arg) + <span class="string">'&lt;br&gt;'</span> +</div><div class="line">      <span class="string">'modifiers: '</span>  + s(binding.modifiers) + <span class="string">'&lt;br&gt;'</span> +</div><div class="line">      <span class="string">'vnode keys: '</span> + <span class="built_in">Object</span>.keys(vnode).join(<span class="string">', '</span>)</div><div class="line">  &#125;</div><div class="line">&#125;)</div><div class="line"></div><div class="line"><span class="keyword">new</span> Vue(&#123;</div><div class="line">  el: <span class="string">'#hook-arguments-example'</span>,</div><div class="line">  data: &#123;</div><div class="line">    message: <span class="string">'hello!'</span></div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<div class="upgrade-path">
+  <h4>Upgrade Path</h4>
+  <p>Run the <a href="https://github.com/vuejs/vue-migration-helper" target="_blank" rel="external">migration helper</a> on your codebase to find examples of <code>store.on</code>, <code>store.off</code>, and <code>store.emit</code>.</p>
+</div>
 
-<div id="hook-arguments-example" v-demo:hello.a.b="message" class="demo"></div>
-<script>
-Vue.directive('demo', {
-  bind: function (el, binding, vnode) {
-    var s = JSON.stringify
-    el.innerHTML =
-      'name: '       + s(binding.name) + '<br>' +
-      'value: '      + s(binding.value) + '<br>' +
-      'expression: ' + s(binding.expression) + '<br>' +
-      'argument: '   + s(binding.arg) + '<br>' +
-      'modifiers: '  + s(binding.modifiers) + '<br>' +
-      'vnode keys: ' + Object.keys(vnode).join(', ')
-  }
-})
-new Vue({
-  el: '#hook-arguments-example',
-  data: {
-    message: 'hello!'
-  }
-})
-</script>
+<h2 id="Middlewares-deprecated"><a href="#Middlewares-deprecated" class="headerlink" title="Middlewares deprecated"></a>Middlewares <sup>deprecated</sup></h2><p>Middlewares are replaced by plugins. A plugin is simply a function that receives the store as the only argument, and can listen to the mutation event on the store:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">const</span> myPlugins = store =&gt; &#123;</div><div class="line">  store.subscribe(<span class="string">'mutation'</span>, (mutation, state) =&gt; &#123;</div><div class="line">    <span class="comment">// Do something...</span></div><div class="line">  &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>For more details, see <a href="https://github.com/vuejs/vuex/blob/1.0/docs/en/plugins.md" target="_blank" rel="external">the plugins docs</a>.</p>
 
-<h2 id="Function-Shorthand"><a href="#Function-Shorthand" class="headerlink" title="Function Shorthand"></a>Function Shorthand</h2><p>In many cases, you may want the same behavior on <code>bind</code> and <code>update</code>, but don’t care about the other hooks. For example:</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">Vue.directive(<span class="string">'color-swatch'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">el, binding</span>) </span>&#123;</div><div class="line">  el.style.backgroundColor = binding.value</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<h2 id="Object-Literals"><a href="#Object-Literals" class="headerlink" title="Object Literals"></a>Object Literals</h2><p>If your directive needs multiple values, you can also pass in a JavaScript object literal. Remember, directives can take any valid JavaScript expression.</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-demo</span>=<span class="string">"&#123; color: 'white', text: 'hello!' &#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">Vue.directive(<span class="string">'demo'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">el, binding</span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(binding.value.color) <span class="comment">// =&gt; "white"</span></div><div class="line">  <span class="built_in">console</span>.log(binding.value.text)  <span class="comment">// =&gt; "hello!"</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<div class="upgrade-path">
+  <h4>Upgrade Path</h4>
+  <p>Run the <a href="https://github.com/vuejs/vue-migration-helper" target="_blank" rel="external">migration helper</a> on your codebase to find examples of the <code>middlewares</code> option on a store.</p>
+</div>
+
 
     
       <div class="guide-links">
         
-          <span>← <a href="/guide/render-function.html">Render Functions</a></span>
+          <span>← <a href="/guide/migration-vue-router.html">Migration from Vue Router 0.7.x</a></span>
         
         
-          <span style="float:right"><a href="/guide/mixins.html">Mixins</a> →</span>
+          <span style="float:right"><a href="/guide/comparison.html">Comparison with Other Frameworks</a> →</span>
         
       </div>
     
     <div class="footer">
       Caught a mistake or want to contribute to the documentation?
-      <a href="https://github.com/vuejs/vuejs.org/blob/master/src/guide/custom-directive.md" target="_blank">
+      <a href="https://github.com/vuejs/vuejs.org/blob/master/src/guide/migration-vuex.md" target="_blank">
         Edit this page on Github!
       </a>
     </div>

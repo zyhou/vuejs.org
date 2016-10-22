@@ -367,6 +367,7 @@ body.docs #nav {
   box-sizing: border-box;
   padding: 0 15px 0 30px;
   border: 1px solid #e3e3e3;
+  color: #2c3e50;
   outline: none;
   border-radius: 15px;
   margin-right: 10px;
@@ -401,7 +402,7 @@ body.docs #nav {
   background-color: #fff;
   z-index: 9;
   display: none;
-  box-shadow: 0 0 4px rgba(0,0,0,0.25);
+  box-shadow: 0 0 2px rgba(0,0,0,0.25);
 }
 #mobile-bar .menu-button {
   position: absolute;
@@ -463,9 +464,9 @@ body.docs #nav {
   position: absolute;
   z-index: 10;
   top: 61px;
-  left: 60px;
+  left: 0;
   bottom: 0;
-  padding: 40px 0;
+  padding: 40px 0 30px 60px;
   width: 260px;
   margin-right: 20px;
   overflow-x: hidden;

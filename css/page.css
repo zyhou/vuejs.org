@@ -367,6 +367,7 @@ body.docs #nav {
   box-sizing: border-box;
   padding: 0 15px 0 30px;
   border: 1px solid #e3e3e3;
+  color: #2c3e50;
   outline: none;
   border-radius: 15px;
   margin-right: 10px;
@@ -401,7 +402,7 @@ body.docs #nav {
   background-color: #fff;
   z-index: 9;
   display: none;
-  box-shadow: 0 0 4px rgba(0,0,0,0.25);
+  box-shadow: 0 0 2px rgba(0,0,0,0.25);
 }
 #mobile-bar .menu-button {
   position: absolute;
@@ -548,32 +549,29 @@ ul.demo li {
 .sponsors-page a {
   margin: 10px 20px;
 }
-.migration-guide h3 > sup,
-.migration-vue-router-guide h3 > sup {
+.content.guide[class*="migration"] h2 > sup,
+.content.guide[class*="migration"] h3 > sup {
   margin-left: 0.3em;
   color: #b9465c;
 }
-.migration-guide .upgrade-path,
-.migration-vue-router-guide .upgrade-path {
+.content.guide[class*="migration"] .upgrade-path {
   padding: 2em;
   background: rgba(73,195,140,0.1);
   border-radius: 2px;
 }
-.migration-guide .upgrade-path > h4,
-.migration-vue-router-guide .upgrade-path > h4 {
+.content.guide[class*="migration"] .upgrade-path > h4 {
   margin-top: 0;
 }
-.migration-guide .upgrade-path > p:last-child,
-.migration-vue-router-guide .upgrade-path > p:last-child {
+.content.guide[class*="migration"] .upgrade-path > p:last-child {
   margin-bottom: 0;
 }
 .sidebar {
   position: absolute;
   z-index: 10;
   top: 61px;
-  left: 60px;
+  left: 0;
   bottom: 0;
-  padding: 40px 0;
+  padding: 40px 0 30px 60px;
   width: 260px;
   margin-right: 20px;
   overflow-x: hidden;
@@ -662,7 +660,8 @@ ul.demo li {
   }
 }
 #header {
-  box-shadow: 0 0 4px rgba(0,0,0,0.25);
+  box-shadow: 0 0 1px rgba(0,0,0,0.25);
+  transition: background-color 0.3s ease-in-out;
 }
 .content {
   position: relative;
@@ -808,6 +807,11 @@ ul.demo li {
 }
 #main.fix-sidebar .sidebar {
   position: fixed;
+}
+@media screen and (min-width: 1360px) {
+  #header {
+    background-color: rgba(255,255,255,0.4);
+  }
 }
 @media screen and (max-width: 1300px) {
   .content.with-sidebar {

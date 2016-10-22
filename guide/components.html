@@ -212,6 +212,15 @@
                 
                 
                 <li>
+                    <a href="/guide/reactivity.html" class="sidebar-link">Reactivity in Depth</a>
+                </li>
+            
+                
+                
+                
+                
+                
+                <li>
                     <a href="/guide/transitions.html" class="sidebar-link">Transition Effects</a>
                 </li>
             
@@ -231,15 +240,6 @@
                 
                 <li>
                     <a href="/guide/render-function.html" class="sidebar-link">Render Functions</a>
-                </li>
-            
-                
-                
-                
-                
-                
-                <li>
-                    <a href="/guide/reactivity.html" class="sidebar-link">Reactivity in Depth</a>
                 </li>
             
                 
@@ -341,6 +341,15 @@
                 
                 <li>
                     <a href="/guide/migration-vue-router.html" class="sidebar-link">Migration from Vue Router 0.7.x</a>
+                </li>
+            
+                
+                
+                
+                
+                
+                <li>
+                    <a href="/guide/migration-vuex.html" class="sidebar-link">Migration from Vuex 0.6.x to 1.0</a>
                 </li>
             
                 
@@ -468,7 +477,6 @@ new Vue({
 })
 </script>
 
-<p>The <code>el</code> option also requires a function value when used in a component instance, for exactly the same reason.</p>
 <h3 id="Composing-Components"><a href="#Composing-Components" class="headerlink" title="Composing Components"></a>Composing Components</h3><p>Components are meant to be used together, most commonly in parent-child relationships: component A may use component B in its own template. They inevitably need to communicate to one another: the parent may need to pass data down to the child, and the child may need to inform the parent of something that happened in the child. However, it is also very important to keep the parent and the child as decoupled as possible via a clearly-defined interface. This ensures each component’s code can be written and reasoned about in relative isolation, thus making them more maintainable and potentially easier to reuse.</p>
 <p>In Vue.js, the parent-child component relationship can be summarized as <strong>props down, events up</strong>. The parent passes data down to the child via <strong>props</strong>, and the child sends messages to the parent via <strong>events</strong>. Let’s see how they work next.</p>
 <p style="text-align: center"><br>  <img style="width:300px" src="/images/props-events.png" alt="props down, events up"><br></p>
@@ -748,7 +756,7 @@ new Vue({
 <figure class="highlight js"><table><tr><td class="code"><pre><div class="line">name: <span class="string">'stack-overflow'</span>,</div><div class="line">template: <span class="string">'&lt;div&gt;&lt;stack-overflow&gt;&lt;/stack-overflow&gt;&lt;/div&gt;'</span></div></pre></td></tr></table></figure>
 <p>A component like the above will result in a “max stack size exceeded” error, so make sure recursive invocation is conditional (i.e. uses a <code>v-if</code> that will eventually be false). When you register a component globally using <code>Vue.component</code>, the global ID is automatically set as the component’s <code>name</code> option.</p>
 <h3 id="Inline-Templates"><a href="#Inline-Templates" class="headerlink" title="Inline Templates"></a>Inline Templates</h3><p>When the <code>inline-template</code> special attribute is present on a child component, the component will use its inner content as its template, rather than treating it as distributed content. This allows more flexible template-authoring.</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">my-component</span> <span class="attr">inline-template</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>These are compiled as the component's own template.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>Not parent's transclusion content.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">my-component</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">my-component</span> <span class="attr">inline-template</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>These are compiled as the component's own template.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Not parent's transclusion content.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span>  </div><div class="line"><span class="tag">&lt;/<span class="name">my-component</span>&gt;</span></div></pre></td></tr></table></figure>
 <p>However, <code>inline-template</code> makes the scope of your templates harder to reason about. As a best practice, prefer defining templates inside the component using the <code>template</code> option or in a <code>template</code> element in a <code>.vue</code> file.</p>
 <h3 id="X-Templates"><a href="#X-Templates" class="headerlink" title="X-Templates"></a>X-Templates</h3><p>Another way to define templates is inside of a script element with the type <code>text/x-template</code>, then referencing the template by an id. For example:</p>
 <figure class="highlight html"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/x-template"</span> <span class="attr">id</span>=<span class="string">"hello-world-template"</span>&gt;</span><span class="xml"></span></div><div class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>Hello hello hello<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
@@ -763,7 +771,7 @@ new Vue({
           <span>← <a href="/guide/forms.html">Form Input Bindings</a></span>
         
         
-          <span style="float:right"><a href="/guide/transitions.html">Transition Effects</a> →</span>
+          <span style="float:right"><a href="/guide/reactivity.html">Reactivity in Depth</a> →</span>
         
       </div>
     
