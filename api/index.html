@@ -6,6 +6,17 @@
         <meta charset="utf-8">
         <meta name="description" content="Vue.js - Intuitive, Fast and Composable MVVM for building interactive interfaces.">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+        <meta property="og:type" content="article">
+        <meta property="og:title" content="vue.js">
+        <meta property="og:description" content="Vue.js - Intuitive, Fast and Composable MVVM for building interactive interfaces.">
+        <meta property="og:image" content="https://vuejs.org/images/logo.png">
+
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="vue.js">
+        <meta name="twitter:description" content="Vue.js - Intuitive, Fast and Composable MVVM for building interactive interfaces.">
+        <meta name="twitter:image" content="https://vuejs.org/images/logo.png">
+
         <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600|Roboto Mono' rel='stylesheet' type='text/css'>
         <link href='//fonts.googleapis.com/css?family=Dosis:500&text=Vue.js' rel='stylesheet' type='text/css'>
         <link href="//cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css" rel='stylesheet' type='text/css'>
@@ -87,10 +98,8 @@
     </ul>
     <div class="list">
         <div id="donate" style="margin-bottom: 20px">
-            <span class="wrapper" style="width: 110px">
-              <img src="/images/patreon.png">
-              <a href="/support-vuejs">Support Vue.js</a>
-            </span>
+            <img src="/images/patreon.png">
+            <a href="/support-vuejs">Support Vue.js</a>
         </div>
         <h2>
             API
@@ -142,7 +151,7 @@
 <p>Define custom merging strategies for options.</p>
 <p>The merge strategy receives the value of that option defined on the parent and child instances as the first and second arguments, respectively. The context Vue instance is passed as the third argument.</p>
 </li>
-<li><p><strong>See also</strong>: <a href="/guide/mixins.html#Custom-Option-Merge-Strategies">Custom Option Merging Strategies</a></p>
+<li><p><strong>See also:</strong> <a href="/guide/mixins.html#Custom-Option-Merge-Strategies">Custom Option Merging Strategies</a></p>
 </li>
 </ul>
 <h3 id="devtools"><a href="#devtools" class="headerlink" title="devtools"></a>devtools</h3><ul>
@@ -166,6 +175,16 @@
 <blockquote>
 <p><a href="https://sentry.io" target="_blank" rel="external">Sentry</a>, an error tracking service, provides <a href="https://sentry.io/for/vue/" target="_blank" rel="external">official integration</a> using this option.</p>
 </blockquote>
+</li>
+</ul>
+<h3 id="ignoredElements"><a href="#ignoredElements" class="headerlink" title="ignoredElements"></a>ignoredElements</h3><ul>
+<li><p><strong>Type:</strong> <code>Array&lt;string&gt;</code></p>
+</li>
+<li><p><strong>Default:</strong> <code>[]</code></p>
+</li>
+<li><p><strong>Usage:</strong></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">Vue.config.ignoredElements = [</div><div class="line">  <span class="string">'my-custom-web-component'</span>, <span class="string">'another-web-component'</span></div><div class="line">]</div></pre></td></tr></table></figure>
+<p>Make Vue ignore custom elements defined outside of Vue (e.g., using the Web Components APIs). Otherwise, it will throw a warning about an <code>Unknown custom element</code>, assuming that you forgot to register a global component or misspelled a component name.</p>
 </li>
 </ul>
 <h3 id="keyCodes"><a href="#keyCodes" class="headerlink" title="keyCodes"></a>keyCodes</h3><ul>
@@ -288,7 +307,7 @@
 </ul>
 </li>
 <li><p><strong>Usage:</strong></p>
-<p>Register or retrieve a global component.</p>
+<p>Register or retrieve a global component. Registration also automatically sets the component’s <code>name</code> with the given <code>id</code>.</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// register an extended constructor</span></div><div class="line">Vue.component(<span class="string">'my-component'</span>, Vue.extend(&#123; <span class="comment">/* ... */</span> &#125;))</div><div class="line"></div><div class="line"><span class="comment">// register an options object (automatically call Vue.extend)</span></div><div class="line">Vue.component(<span class="string">'my-component'</span>, &#123; <span class="comment">/* ... */</span> &#125;)</div><div class="line"></div><div class="line"><span class="comment">// retrieve a registered component (always return constructor)</span></div><div class="line"><span class="keyword">var</span> MyComponent = Vue.component(<span class="string">'my-component'</span>)</div></pre></td></tr></table></figure>
 </li>
 <li><p><strong>See also:</strong> <a href="/guide/components.html">Components</a></p>
@@ -660,7 +679,7 @@
 <h3 id="delimiters"><a href="#delimiters" class="headerlink" title="delimiters"></a>delimiters</h3><ul>
 <li><p><strong>Type:</strong> <code>Array&lt;string&gt;</code></p>
 </li>
-<li><p><strong>default:</strong> <code>[&quot;, &quot;]</code></p>
+<li><p><strong>default:</strong> <code>["{{", "}}"]</code></p>
 </li>
 <li><p><strong>Details:</strong></p>
 <p>Change the plain text interpolation delimiters. <strong>This option is only available in the standalone build.</strong></p>
@@ -1148,7 +1167,7 @@
 <h3 id="v-pre"><a href="#v-pre" class="headerlink" title="v-pre"></a>v-pre</h3><ul>
 <li><p><strong>Does not expect expression</strong></p>
 </li>
-<li><p><strong>Usage</strong></p>
+<li><p><strong>Usage:</strong></p>
 <p>Skip compilation for this element and all its children. You can use this for displaying raw mustache tags. Skipping large numbers of nodes with no directives on them can also speed up compilation.</p>
 </li>
 <li><p><strong>Example:</strong></p>

@@ -6,6 +6,17 @@
         <meta charset="utf-8">
         <meta name="description" content="Vue.js - Intuitive, Fast and Composable MVVM for building interactive interfaces.">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+        <meta property="og:type" content="article">
+        <meta property="og:title" content="Computed Properties and Watchers - vue.js">
+        <meta property="og:description" content="Vue.js - Intuitive, Fast and Composable MVVM for building interactive interfaces.">
+        <meta property="og:image" content="https://vuejs.org/images/logo.png">
+
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Computed Properties and Watchers - vue.js">
+        <meta name="twitter:description" content="Vue.js - Intuitive, Fast and Composable MVVM for building interactive interfaces.">
+        <meta name="twitter:image" content="https://vuejs.org/images/logo.png">
+
         <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600|Roboto Mono' rel='stylesheet' type='text/css'>
         <link href='//fonts.googleapis.com/css?family=Dosis:500&text=Vue.js' rel='stylesheet' type='text/css'>
         <link href="//cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css" rel='stylesheet' type='text/css'>
@@ -87,10 +98,8 @@
     </ul>
     <div class="list">
         <div id="donate" style="margin-bottom: 20px">
-            <span class="wrapper" style="width: 110px">
-              <img src="/images/patreon.png">
-              <a href="/support-vuejs">Support Vue.js</a>
-            </span>
+            <img src="/images/patreon.png">
+            <a href="/support-vuejs">Support Vue.js</a>
         </div>
         <h2>
             Guide
@@ -425,7 +434,7 @@ var vm = new Vue({
 <h3 id="Computed-Caching-vs-Methods"><a href="#Computed-Caching-vs-Methods" class="headerlink" title="Computed Caching vs Methods"></a>Computed Caching vs Methods</h3><p>You may have noticed we can achieve the same result by invoking a method in the expression:</p>
 <figure class="highlight html"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Reversed message: "&#123;&#123; reverseMessage() &#125;&#125;"<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div></pre></td></tr></table></figure>
 <figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// in component</span></div><div class="line">methods: &#123;</div><div class="line">  reverseMessage: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.message.split(<span class="string">''</span>).reverse().join(<span class="string">''</span>)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>Instead of a computed property, we can define the same function as a method instead. For the end result, the two approaches are indeed exactly the same. However, the difference is that <strong>computed properties are cached based on its dependencies.</strong> A computed property will only re-evaluate when some of its dependencies have changed. This means as long as <code>message</code> has not changed, multiple access to the <code>reversedMessage</code> computed property will immediately return the previously computed result without having to run the function again.</p>
+<p>Instead of a computed property, we can define the same function as a method instead. For the end result, the two approaches are indeed exactly the same. However, the difference is that <strong>computed properties are cached based on their dependencies.</strong> A computed property will only re-evaluate when some of its dependencies have changed. This means as long as <code>message</code> has not changed, multiple access to the <code>reversedMessage</code> computed property will immediately return the previously computed result without having to run the function again.</p>
 <p>This also means the following computed property will never update, because <code>Date.now()</code> is not a reactive dependency:</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><div class="line">computed: &#123;</div><div class="line">  now: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="built_in">Date</span>.now()</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>In comparison, a method invocation will <strong>always</strong> run the function whenever a re-render happens.</p>

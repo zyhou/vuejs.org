@@ -6,6 +6,17 @@
         <meta charset="utf-8">
         <meta name="description" content="Vue.js - Intuitive, Fast and Composable MVVM for building interactive interfaces.">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+        <meta property="og:type" content="article">
+        <meta property="og:title" content="Reactivity in Depth - vue.js">
+        <meta property="og:description" content="Vue.js - Intuitive, Fast and Composable MVVM for building interactive interfaces.">
+        <meta property="og:image" content="https://vuejs.org/images/logo.png">
+
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Reactivity in Depth - vue.js">
+        <meta name="twitter:description" content="Vue.js - Intuitive, Fast and Composable MVVM for building interactive interfaces.">
+        <meta name="twitter:image" content="https://vuejs.org/images/logo.png">
+
         <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600|Roboto Mono' rel='stylesheet' type='text/css'>
         <link href='//fonts.googleapis.com/css?family=Dosis:500&text=Vue.js' rel='stylesheet' type='text/css'>
         <link href="//cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css" rel='stylesheet' type='text/css'>
@@ -87,10 +98,8 @@
     </ul>
     <div class="list">
         <div id="donate" style="margin-bottom: 20px">
-            <span class="wrapper" style="width: 110px">
-              <img src="/images/patreon.png">
-              <a href="/support-vuejs">Support Vue.js</a>
-            </span>
+            <img src="/images/patreon.png">
+            <a href="/support-vuejs">Support Vue.js</a>
         </div>
         <h2>
             Guide
@@ -406,7 +415,7 @@
 <p>Sometimes you may want to assign a number of properties to an existing object, for example using <code>Object.assign()</code> or <code>_.extend()</code>. However, new properties added to the object will not trigger changes. In such cases, create a fresh object with properties from both the original object and the mixin object:</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// instead of `Object.assign(this.someObject, &#123; a: 1, b: 2 &#125;)`</span></div><div class="line"><span class="keyword">this</span>.someObject = <span class="built_in">Object</span>.assign(&#123;&#125;, <span class="keyword">this</span>.someObject, &#123; a: <span class="number">1</span>, b: <span class="number">2</span> &#125;)</div></pre></td></tr></table></figure>
 <p>There are also a few array-related caveats, which were discussed earlier in the <a href="/guide/list.html#Caveats">list rendering section</a>.</p>
-<h2 id="Declaring-Reactive-Properties"><a href="#Declaring-Reactive-Properties" class="headerlink" title="Declaring Reactive Properties"></a>Declaring Reactive Properties</h2><p>Since Vue doesn’t allow dynamically adding root-level reactive properties, this means you have to initialize you instances by declaring all root-level reactive data properties upfront, even just with an empty value:</p>
+<h2 id="Declaring-Reactive-Properties"><a href="#Declaring-Reactive-Properties" class="headerlink" title="Declaring Reactive Properties"></a>Declaring Reactive Properties</h2><p>Since Vue doesn’t allow dynamically adding root-level reactive properties, you have to initialize Vue instances by declaring all root-level reactive data properties upfront, even just with an empty value:</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</div><div class="line">  data: &#123;</div><div class="line">    <span class="comment">// declare message with an empty value</span></div><div class="line">    message: <span class="string">''</span></div><div class="line">  &#125;,</div><div class="line">  template: <span class="string">'&lt;div&gt;&#123;&#123; message &#125;&#125;&lt;/div&gt;'</span></div><div class="line">&#125;)</div><div class="line"><span class="comment">// set `message` later</span></div><div class="line">vm.message = <span class="string">'Hello!'</span></div></pre></td></tr></table></figure>
 <p>If you don’t declare <code>message</code> in the data option, Vue will warn you that the render function is trying to access a property that doesn’t exist.</p>
 <p>There are technical reasons behind this restriction - it eliminates a class of edge cases in the dependency tracking system, and also makes Vue instances play nicer with type checking systems. But there is also an important consideration in terms of code maintainability: the <code>data</code> object is like the schema for your component’s state. Declaring all reactive properties upfront makes the component code easier to understand when revisited later or read by another developer.</p>

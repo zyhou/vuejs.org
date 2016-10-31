@@ -6,6 +6,17 @@
         <meta charset="utf-8">
         <meta name="description" content="Vue.js - Intuitive, Fast and Composable MVVM for building interactive interfaces.">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+        <meta property="og:type" content="article">
+        <meta property="og:title" content="The Vue Instance - vue.js">
+        <meta property="og:description" content="Vue.js - Intuitive, Fast and Composable MVVM for building interactive interfaces.">
+        <meta property="og:image" content="https://vuejs.org/images/logo.png">
+
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="The Vue Instance - vue.js">
+        <meta name="twitter:description" content="Vue.js - Intuitive, Fast and Composable MVVM for building interactive interfaces.">
+        <meta name="twitter:image" content="https://vuejs.org/images/logo.png">
+
         <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600|Roboto Mono' rel='stylesheet' type='text/css'>
         <link href='//fonts.googleapis.com/css?family=Dosis:500&text=Vue.js' rel='stylesheet' type='text/css'>
         <link href="//cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css" rel='stylesheet' type='text/css'>
@@ -87,10 +98,8 @@
     </ul>
     <div class="list">
         <div id="donate" style="margin-bottom: 20px">
-            <span class="wrapper" style="width: 110px">
-              <img src="/images/patreon.png">
-              <a href="/support-vuejs">Support Vue.js</a>
-            </span>
+            <img src="/images/patreon.png">
+            <a href="/support-vuejs">Support Vue.js</a>
         </div>
         <h2>
             Guide
@@ -409,7 +418,7 @@
 <p>Consult the <a href="/api">API reference</a> for the full list of instance properties and methods.</p>
 <h2 id="Instance-Lifecycle-Hooks"><a href="#Instance-Lifecycle-Hooks" class="headerlink" title="Instance Lifecycle Hooks"></a>Instance Lifecycle Hooks</h2><p>Each Vue instance goes through a series of initialization steps when it is created - for example, it needs to set up data observation, compile the template, mount the instance to the DOM, and update the DOM when data changes. Along the way, it will also invoke some <strong>lifecycle hooks</strong>, which give us the opportunity to execute custom logic. For example, the <code>created</code> hook is called after the instance is created:</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</div><div class="line">  data: &#123;</div><div class="line">    a: <span class="number">1</span></div><div class="line">  &#125;,</div><div class="line">  created: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="comment">// `this` points to the vm instance</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'a is: '</span> + <span class="keyword">this</span>.a)</div><div class="line">  &#125;</div><div class="line">&#125;)</div><div class="line"><span class="comment">// -&gt; "a is: 1"</span></div></pre></td></tr></table></figure>
-<p>There are also other hooks which will be called at different stages of the instance’s lifecycle, for example <code>mounted</code>, <code>updated</code>, and <code>destroyed</code>. All lifecycle hooks are called with their <code>this</code> context pointing to the Vue instance invoking it. Some users may have been wondering where the concept of “controllers” lives in the Vue world and the answer is: there are no controllers. Your custom logic for a component would be split among these lifecycle hooks.</p>
+<p>There are also other hooks which will be called at different stages of the instance’s lifecycle, for example <code>mounted</code>, <code>updated</code>, and <code>destroyed</code>. All lifecycle hooks are called with their <code>this</code> context pointing to the Vue instance invoking it. You may have been wondering where the concept of “controllers” lives in the Vue world and the answer is: there are no controllers. Your custom logic for a component would be split among these lifecycle hooks.</p>
 <h2 id="Lifecycle-Diagram"><a href="#Lifecycle-Diagram" class="headerlink" title="Lifecycle Diagram"></a>Lifecycle Diagram</h2><p>Below is a diagram for the instance lifecycle. You don’t need to fully understand everything going on right now, but this diagram will be helpful in the future.</p>
 <p><img src="/images/lifecycle.png" alt="Lifecycle"></p>
 
