@@ -258,6 +258,9 @@ a.button.white {
 #nav .nav-dropdown-container:hover .nav-dropdown {
   display: block;
 }
+#nav .nav-dropdown-container.ecosystem {
+  margin-left: 20px;
+}
 #nav .nav-dropdown {
   display: none;
   position: absolute;
@@ -269,6 +272,7 @@ a.button.white {
   border-bottom-color: #ccc;
   text-align: left;
   border-radius: 4px;
+  white-space: nowrap;
 }
 #nav .nav-dropdown li {
   line-height: 1.8em;
@@ -279,7 +283,7 @@ a.button.white {
   color: #7f8c8d;
   font-size: 0.9em;
   display: block;
-  padding: 0 30px 0 20px;
+  padding: 0 24px 0 20px;
 }
 #nav .nav-dropdown a:hover {
   color: #42b983;
