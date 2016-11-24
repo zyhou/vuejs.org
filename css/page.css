@@ -258,7 +258,8 @@ a.button.white {
 #nav .nav-dropdown-container:hover .nav-dropdown {
   display: block;
 }
-#nav .nav-dropdown-container.ecosystem {
+#nav .nav-dropdown-container.ecosystem,
+#nav .nav-dropdown-container.language {
   margin-left: 20px;
 }
 #nav .nav-dropdown {
@@ -414,7 +415,7 @@ body.docs #nav {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 #demo h1,
 .demo h1 {
@@ -426,6 +427,7 @@ body.docs #nav {
 #demo ol,
 .demo ol {
   padding-left: 1.5em;
+  padding-bottom: 0.2em !important;
 }
 #demo ul:first-child,
 .demo ul:first-child,
@@ -447,6 +449,11 @@ body.docs #nav {
 .demo li.done {
   color: #7f8c8d;
   text-decoration: line-through;
+}
+#demo p,
+.demo p {
+  margin: 0 !important;
+  padding: 0 !important;
 }
 #demo p:first-child,
 .demo p:first-child {
@@ -700,16 +707,17 @@ ul.demo li {
   font-size: 1.2em;
   font-weight: bold;
 }
-.content figure,
-.content p,
-.content ul,
-.content ol {
+.content figure {
   margin: 1.2em 0;
 }
 .content p,
 .content ul,
 .content ol {
   line-height: 1.6em;
+  margin: 1.2em 0 -1.2em;
+  padding-bottom: 1.2em;
+  position: relative;
+  z-index: 1;
 }
 .content ul,
 .content ol {
@@ -776,7 +784,7 @@ ul.demo li {
 #main.fix-sidebar .sidebar {
   position: fixed;
 }
-@media screen and (min-width: 1360px) {
+@media screen and (min-width: 1590px) {
   #header {
     background-color: rgba(255,255,255,0.4);
   }
