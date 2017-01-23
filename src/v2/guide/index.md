@@ -8,23 +8,23 @@ order: 2
 
 ## What is Vue.js?
 
-Vue (pronounced /vjuː/, like **view**) is a **progressive framework** for building user interfaces. Unlike other monolithic frameworks, Vue is designed from the ground up to be incrementally adoptable. The core library is focused on the view layer only, and is very easy to pick up and integrate with other libraries or existing projects. On the other hand, Vue is also perfectly capable of powering sophisticated Single-Page Applications when used in combination with [modern tooling](single-file-components.html) and [supporting libraries](https://github.com/vuejs/awesome-vue#libraries--plugins).
+Vue (prononcé /vju/, comme **view**) est un **framework évolutif** permettant aux utilisateurs d’élaborer leurs interfaces / sites web. Contrairement à d’autres frameworks monolithiques / rigides, Vue est conçu entièrement / de fond en comble pour être progressivement …… . La bibliothèque principale est axée sur …… , vous pouvez facilement la récupérer et de l’intégrer à d’autres bibliothèques ou projets existants. D’un autre côté, Vue est aussi … lorsque vous l’utilisez en le combinant avec des outils modernes  et des …….
 
 If you are an experienced frontend developer and want to know how Vue compares to other libraries/frameworks, check out the [Comparison with Other Frameworks](comparison.html).
 
 ## Getting Started
 
-<p class="tip">The official guide assumes intermediate level knowledge of HTML, CSS, and JavaScript. If you are totally new to frontend development, it might not be the best idea to jump right into a framework as your first step - grasp the basics then come back! Prior experience with other frameworks helps, but is not required.</p>
+<p class="tip">Le guide officiel suppose une connaissance de niveau intermédiaire de HTML, CSS et JavaScript. Si vous êtes totalement nouveau dans le développement d'interface, ce n'est sans doute pas la meilleure idée que de vous aventurer dans un framework - apprenez les bases et revenez! Une expérience antérieure avec d'autres framework peut vous aider, mais n'est pas nécessaire.</p>
 
-The easiest way to try out Vue.js is using the [JSFiddle Hello World example](https://jsfiddle.net/chrisvfritz/50wL7mdz/). Feel free to open it in another tab and follow along as we go through some basic examples. Or, you can simply create an `.html` file and include Vue with:
+La façon la plus simple d'essayer Vue.js est d'utiliser [l'exemple JSFiddle Hello World](https://jsfiddle.net/chrisvfritz/50wL7mdz/). N'hésitez pas à l'ouvrir dans un autre onglet et poursuivez à l'aide de ces exemples simple. Ou, vous pouvez simplement créer un fichier `.html` et inclure Vue avec:
 
 ``` html
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
 ```
 
-The [Installation](installation.html) page provides more options of installing Vue. Note that we **do not** recommend beginners to start with `vue-cli`, especially if you are not yet familiar with Node.js-based build tools.
+[La page d'installation](installation.html) contient d'autre options pour installer de Vue. On **ne recommande pas** d'utiliser `vue-cli` pour commencer, surtout si vous n'êtes pas famillier avec les outils de Node.js.
 
-## Declarative Rendering
+## Rendre une vue
 
 At the core of Vue.js is a system that enables us to declaratively render data to the DOM using straightforward template syntax:
 
@@ -56,6 +56,8 @@ var app = new Vue({
 {% endraw %}
 
 We have already created our very first Vue app! This looks pretty similar to just rendering a string template, but Vue has done a lot of work under the hood. The data and the DOM are now linked, and everything is now **reactive**. How do we know? Just open up your browser's JavaScript console and set `app.message` to a different value. You should see the rendered example above update accordingly.
+
+
 
 In addition to text interpolation, we can also bind element attributes like this:
 
